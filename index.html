@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080d14">
+  <meta name="description" content="献给每一位热爱奔跑的北邮人：1024 程序员节快乐。">
+  <title>RUN(); · 北邮 1024 程序员节</title>
+  <style>
+    :root{color-scheme:dark;--bg:#080d14;--panel:#0d151f;--line:#243343;--muted:#8293a5;--text:#eef5f8;--mint:#9cffc7;--cyan:#72e5e8;--pink:#ff7a9f;--mono:"Cascadia Code","SFMono-Regular",Consolas,monospace;--sans:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+    *{box-sizing:border-box}
+    body{min-height:100svh;margin:0;display:grid;place-items:center;overflow-x:hidden;background:var(--bg);color:var(--text);font-family:var(--sans);padding:28px 18px;isolation:isolate}
+    body::before{content:"";position:fixed;inset:0;z-index:-2;background:linear-gradient(#17212c44 1px,transparent 1px),linear-gradient(90deg,#17212c44 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(to bottom,transparent,#000 20%,#000 80%,transparent);opacity:.42}
+    body::after{content:"";position:fixed;width:min(72vw,780px);aspect-ratio:1;z-index:-1;left:50%;top:48%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#21ac7650 0, #168f6840 19%,#0e597e24 42%,transparent 70%);filter:blur(24px);animation:breath 7s ease-in-out infinite alternate}
+    .wrap{width:min(100%,920px);animation:arrive .9s cubic-bezier(.2,.8,.2,1) both}
+    .eyebrow{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 4px 14px;color:var(--muted);font:12px/1.4 var(--mono);letter-spacing:.09em;text-transform:uppercase}
+    .eyebrow .live{display:inline-flex;align-items:center;gap:8px}.live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 12px var(--mint);animation:blink 1.6s ease-in-out infinite}
+    .terminal{position:relative;border:1px solid #385065;border-radius:15px;overflow:hidden;background:linear-gradient(145deg,#0d1721f5,#0a111af7 64%);box-shadow:0 28px 100px #0009,0 0 60px #38ce9b10,inset 0 1px #ffffff08}
+    .terminal::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,#72e5e80a,transparent 35%,transparent 70%,#9cffc708)}
+    .topbar{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 19px;border-bottom:1px solid var(--line);background:#ffffff03;color:#899aab;font:12px var(--mono)}
+    .dots{display:flex;gap:7px}.dots i{width:9px;height:9px;border-radius:50%;background:#ff6e73}.dots i:nth-child(2){background:#ffd166}.dots i:nth-child(3){background:#65d995}
+    .top-title{position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;letter-spacing:.04em}
+    .top-right{display:flex;gap:14px}.top-right span:last-child{color:var(--mint)}
+    .content{position:relative;padding:clamp(25px,6vw,66px) clamp(22px,8vw,88px) 38px}
+    .prompt{display:flex;align-items:center;gap:10px;color:var(--mint);font:clamp(12px,2vw,14px) var(--mono);letter-spacing:.025em;animation:fade-up .7s .1s both}
+    .prompt b{color:var(--cyan);font-weight:500}.prompt .caret{display:inline-block;width:8px;height:16px;background:var(--mint);vertical-align:-3px;animation:blink 1.1s steps(2,start) infinite}
+    h1{max-width:760px;margin:24px 0 25px;font-size:clamp(32px,6.5vw,64px);font-weight:650;line-height:1.36;letter-spacing:.015em;animation:fade-up .8s .22s both}
+    h1 .line{display:block}.h-star{color:var(--mint);text-shadow:0 0 28px #73ffc54a}.h-hot{color:var(--cyan);text-shadow:0 0 26px #72e5e842}
+    .subline{display:flex;align-items:center;gap:12px;margin:0;color:#9aacbc;font-size:clamp(14px,2.4vw,17px);line-height:1.9;animation:fade-up .8s .4s both}.subline::before{content:"";width:25px;height:1px;background:var(--pink);box-shadow:0 0 10px #ff7a9f88;flex:none}
+    .run{display:flex;align-items:center;gap:12px;margin-top:35px;padding:13px 15px;border:1px solid #273b48;border-radius:8px;background:#070d13a8;color:#a8bac7;font:12px/1.7 var(--mono);animation:fade-up .8s .55s both}
+    .run .arrow{color:var(--mint)}.run strong{color:#d7e4e9;font-weight:500}.run .ok{margin-left:auto;color:var(--mint);white-space:nowrap}
+    .footer{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:27px;color:#687b8d;font:11px/1.6 var(--mono);letter-spacing:.04em;animation:fade-up .8s .68s both}
+    .footer strong{color:#94a8b7;font-weight:500}.signature{display:flex;align-items:center;gap:8px}.seal{display:grid;place-items:center;width:27px;height:27px;border:1px solid #8f4361;border-radius:7px;color:#ff9bb7;font:700 10px var(--mono);transform:rotate(-4deg)}
+    .scan{height:1px;position:absolute;inset:0 auto auto 0;width:100%;pointer-events:none;background:linear-gradient(90deg,transparent,#73ffc522,transparent);animation:scan 8s ease-in-out infinite}
+    @keyframes arrive{from{opacity:0;transform:translateY(15px) scale(.99)}to{opacity:1;transform:none}}
+    @keyframes fade-up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+    @keyframes blink{50%{opacity:.3}}
+    @keyframes breath{to{transform:translate(-50%,-50%) scale(1.12);opacity:.65}}
+    @keyframes scan{0%,12%{transform:translateY(0);opacity:0}20%{opacity:1}88%{opacity:.5}100%{transform:translateY(min(80vh,720px));opacity:0}}
+    @media(max-width:560px){body{padding:20px 13px}.eyebrow{font-size:10px}.topbar{height:46px;padding:0 13px}.top-title{font-size:10px}.top-right{gap:7px}.top-right span:first-child{display:none}.content{padding-top:36px;padding-bottom:28px}h1{margin-top:21px}.run{font-size:10px;gap:8px;padding:11px}.footer{align-items:flex-start;font-size:9px}.signature{white-space:nowrap}.seal{width:23px;height:23px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="eyebrow"><span>Beijing University of Posts and Telecommunications</span><span class="live">SYSTEM ONLINE</span></div>
+    <section class="terminal" aria-label="北邮 1024 程序员节祝福">
+      <div class="scan" aria-hidden="true"></div>
+      <header class="topbar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="top-title">bupt://love-and-code — 1024</span><span class="top-right"><span>UTF-8</span><span>● READY</span></span></header>
+      <div class="content">
+        <div class="prompt" aria-hidden="true"><b>bupt@runner</b>:~$ <span>./send_wishes.sh</span><i class="caret"></i></div>
+        <h1><span class="line">愿你写下的每一行，</span><span class="line">都能<span class="h-star">运行</span>。</span><span class="line">愿每一个拼搏着的北邮人，</span><span class="line">都能奔跑在<span class="h-hot">无限热爱</span>里。</span></h1>
+        <p class="subline">1024，节日快乐~</p>
+        <div class="run" aria-hidden="true"><span class="arrow">&gt;</span><span>build <strong>梦想</strong> &amp;&amp; run <strong>热爱</strong></span><span class="ok">✓ exit 0 · 一切顺利</span></div>
+        <footer class="footer"><span>10.24&nbsp; / &nbsp;PROGRAMMER'S DAY</span><span class="signature"><span class="seal">BUPT</span><span>以代码为笔，以热爱为光</span></span></footer>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
+
